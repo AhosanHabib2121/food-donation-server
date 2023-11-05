@@ -25,6 +25,29 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
 
+        // collection here
+        const userCollection = client.db("foodDonationDB").collection("user")
+
+
+        // -------userCollection here---------
+        app.post('/user', async (req, res) => {
+            const user = req.body;
+            const result = await userCollection.insertOne(user);
+            res.send(result);
+        })
+
+        app.patch('/user', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const updateData = {
+                $set: {
+                    lastLoginAt: user.lastLoginAt,
+                }
+            }
+            const result = await userCollection.updateOne(filter, updateData);
+            res.send(result);
+
+        })
 
 
 
