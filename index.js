@@ -26,7 +26,8 @@ async function run() {
     try {
 
         // collection here
-        const userCollection = client.db("foodDonationDB").collection("user")
+        const userCollection = client.db("foodDonationDB").collection("user");
+        const foodCollection = client.db("foodDonationDB").collection("foods");
 
 
         // -------userCollection here---------
@@ -49,6 +50,12 @@ async function run() {
 
         })
 
+        // -------foodCollection here---------
+        app.post('/foods', async (req, res) => {
+            const foodsData = req.body;
+            const result = await foodCollection.insertOne(foodsData);
+            res.send(result);
+        })
 
 
 
