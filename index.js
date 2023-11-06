@@ -56,6 +56,17 @@ async function run() {
             const result = await foodCollection.insertOne(foodsData);
             res.send(result);
         })
+        app.get('/foods', async (req, res) => {
+            const foodQuantity = await foodCollection.find().sort('food_quantity', -1)
+            .limit(2)
+            .toArray()
+            const allFood = await foodCollection.find()
+            .toArray()
+            res.send({
+                featureFood: foodQuantity,
+                foodAll: allFood
+            });
+        })
 
 
 
