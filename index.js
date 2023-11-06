@@ -58,13 +58,17 @@ async function run() {
         })
         app.get('/foods', async (req, res) => {
             const foodQuantity = await foodCollection.find().sort('food_quantity', -1)
-            .limit(2)
+            .limit(6)
+            .toArray()
+            const expiredDate = await foodCollection.find().sort('expired_date', 1)
+            .limit(3)
             .toArray()
             const allFood = await foodCollection.find()
             .toArray()
             res.send({
                 featureFood: foodQuantity,
-                foodAll: allFood
+                foodAll: allFood,
+                expiredDate: expiredDate
             });
         })
 
