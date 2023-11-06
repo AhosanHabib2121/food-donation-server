@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 require('dotenv').config();
-const {MongoClient, ServerApiVersion} = require('mongodb');
+const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const port = process.env.PORT || 5000
 
 
@@ -28,6 +28,7 @@ async function run() {
         // collection here
         const userCollection = client.db("foodDonationDB").collection("user");
         const foodCollection = client.db("foodDonationDB").collection("foods");
+        const foodRequestCollection = client.db("foodDonationDB").collection("foodRequest");
 
 
         // -------userCollection here---------
@@ -56,6 +57,7 @@ async function run() {
             const result = await foodCollection.insertOne(foodsData);
             res.send(result);
         })
+
         app.get('/foods', async (req, res) => {
             const foodQuantity = await foodCollection.find().sort('food_quantity', -1)
             .limit(6)
@@ -72,6 +74,13 @@ async function run() {
             });
         })
 
+        // --------------foodRequestCollection------------
+        app.post('/foodRequest', async(req, res) => {
+            const foodRequestData = req.body;
+            const result = await foodRequestCollection.insertOne(foodRequestData);
+            res.send(result);
+        })
+//
 
 
 
