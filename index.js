@@ -75,6 +75,13 @@ async function run() {
         })
 
         // --------------foodRequestCollection------------
+        app.get('/foodRequest', async (req, res) => {
+            const loggedEmail = req.query.email;
+            const query = {userEmail: loggedEmail};
+            const result = await foodRequestCollection.find(query).toArray()
+            res.send(result)
+        })
+
         app.post('/foodRequest', async(req, res) => {
             const foodRequestData = req.body;
             const result = await foodRequestCollection.insertOne(foodRequestData);
