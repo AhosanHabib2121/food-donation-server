@@ -105,7 +105,7 @@ async function run() {
         })
 
         // -------foodCollection here---------
-        app.post('/foods', verifyToken, async (req, res) => {
+        app.post('/foods',  async (req, res) => {
             const foodsData = req.body;
             const result = await foodCollection.insertOne(foodsData);
             res.send(result);
@@ -128,7 +128,7 @@ async function run() {
         })
 
         // --------------foodRequestCollection------------
-        app.get('/foodRequest', async (req, res) => {
+        app.get('/foodRequest', verifyToken, async (req, res) => {
             const loggedEmail = req.query.email;
             const query = {userEmail: loggedEmail};
             const result = await foodRequestCollection.find(query).toArray()
