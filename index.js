@@ -10,7 +10,11 @@ const port = process.env.PORT || 5000
 
 // middleware use here
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: [
+        // 'http://localhost:5173',
+        'https: //food-donation-project-3e8c9.web.app',
+        'https://food-donation-project-3e8c9.firebaseapp.com'
+    ],
     credentials: true
 }));
 app.use(express.json());
@@ -137,6 +141,7 @@ async function run() {
 
         app.post('/foodRequest', async(req, res) => {
             const foodRequestData = req.body;
+            console.log(foodRequestData)
             const result = await foodRequestCollection.insertOne(foodRequestData);
             res.send(result);
         })
