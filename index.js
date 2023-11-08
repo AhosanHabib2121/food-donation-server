@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000
 app.use(cors({
     origin: [
         // 'http://localhost:5173',
-        'https: //food-donation-project-3e8c9.web.app',
+        'https://food-donation-project-3e8c9.web.app',
         'https://food-donation-project-3e8c9.firebaseapp.com'
     ],
     credentials: true
